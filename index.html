@@ -2,73 +2,123 @@
 <html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fajar Assignment Calculator</title>
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fajar Assignment Calculator</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-    <header>
-        <h1>Welcome to My Calculator</h1>
-        <section>
-            <p>
-                Hai, Welcome to my Calculator Website!
-            </p>
-        </section>
-    </header>
+  <header>
+    <h1>Welcome to My Calculator</h1>
+    <section>
+      <p>
+        Hai, Welcome to my Calculator Website!
+      </p>
+    </section>
+  </header>
+
+  <section>
+    <div class="section-content">
+      <h3>Segitiga</h3>
+    </div>
+    <button type="button" id="switch-keliling"><u>Switch to Keliling Segitiga</u></button>
 
     <section>
+
+      <section>
         <div class="section-content">
-            <h3>Segitiga</h3>
+          <h2>Luas Segitiga</h2>
         </div>
-        <!-- Ini Title General -->
-        <button type="button" id="switch-keliling"><u>Switch to Keliling Segitiga</u></button>
+        <div class="formula.img">
+          <img src="https://cdn-brilio-net.akamaized.net/real/2023/10/16/2130004/rumus-luas-segitiga-sama-sisi.png" style="display: block; margin: auto;">
+        </div>
+        <p>L = 1/2 x a x t</p>
+      </section>
 
-        <section>
-            
-            <!-- Konten Atas Luas Segitiga-->
-            <section>
-                    <div class="section-content">
-                    <h2>Luas Segitiga</h2>
-                </div>
-        
-                <div class="formula.img">
-                    <img 
-                        src="https://cdn-brilio-net.akamaized.net/real/2023/10/16/2130004/rumus-luas-segitiga-sama-sisi.png" style="display: block; margin: auto;">
-                </div>
-                
-                <p>Lorem Ipsum</p>
-            </section>
+      <hr />
 
-            <!-- Pemisah Konten -->
-            <hr />
+      <section>
+        <header>
+          <h2>Hitung Luas Segitiga</h2>
+        </header>
 
-            <!-- Konten Bawah Luas Segitiga -->
-            <section>
-                <header>
-                    <h2>Hitung Luas Segitiga</h2>
-                </header>
+        <form id="luas-form">
+          <section>
+            <div>
+              <label>Alas:</label><input type="number" id="alas" />
+            </div>
+            <div>
+              <label>Tinggi:</label><input type="number" id="tinggi" />
+            </div>
+          </section>
 
-                <form>
-                    <section>
-                        <div>
-                            <label>Alas:</label><input />
-                        </div>
-                        
-                        <div>
-                            <label>Tinggi:</label><input />
-                        </div>
-                    </section>
+          <p id="diketahui">Hasil: ...</p>
 
-                    <p>Diketahui: Lorem Ipsum...</p>
-
-                    <button type="button">Hitung</button>
-                    <button type="button" id="reset-btn">Reset</button>
-                </form>
-            </section>
-        </section>
+          <button type="button" id="hitung-btn">Hitung</button>
+          <button type="button" id="reset-btn">Reset</button>
+        </form>
+      </section>
     </section>
+  </section>
+
+  <script>
+    const hitungBtn = document.getElementById("hitung-btn");
+    const alasInput = document.getElementById("alas");
+    const tinggiInput = document.getElementById("tinggi");
+    const diketahuiText = document.getElementById("diketahui");
+    const resetBtn = document.getElementById("reset-btn");
+  
+    hitungBtn.addEventListener("click", function() {
+      const alas = parseFloat(alasInput.value);
+      const tinggi = parseFloat(tinggiInput.value);
+  
+      // Check if both inputs are empty or not numbers
+      if (alasInput.value === "" || tinggiInput.value === "" || isNaN(alas) || isNaN(tinggi)) {
+        alert("Silahkan masukkan Alas dan Tinggi terlebih dahulu!");
+        return;
+      }
+  
+      // Validate for whole numbers only using regular expression
+      const wholeNumberRegex = /^\d+$/;
+      if (!wholeNumberRegex.test(alasInput.value) || !wholeNumberRegex.test(tinggiInput.value)) {
+        alert("Silahkan masukkan angka bulat untuk Alas dan Tinggi!");
+        return;
+      }
+  
+      const luas = 0.5 * alas * tinggi;
+  
+      // Generate calculation steps
+      const step1 = `1/2 x Alas x Tinggi`;
+      const step2 = `1/2 x ${alas} x ${tinggi}`;
+      const finalStep = `= ${luas}`;
+  
+      // Create paragraph elements for each step and result
+      const step1Para = document.createElement("p");
+      const step2Para = document.createElement("p");
+      const finalStepPara = document.createElement("p");
+  
+      // Set text content for each paragraph
+      step1Para.textContent = step1;
+      step2Para.textContent = step2;
+      finalStepPara.textContent = finalStep;
+  
+      // Clear existing content
+      diketahuiText.innerHTML = "";
+  
+      // Append all paragraphs to diketahuiText
+      diketahuiText.appendChild(step1Para);
+      diketahuiText.appendChild(step2Para);
+      diketahuiText.appendChild(finalStepPara);
+    });
+  
+    resetBtn.addEventListener("click", function() {
+      alasInput.value = "";
+      tinggiInput.value = "";
+      diketahuiText.innerHTML = "Hasil: ...";
+    });
+  </script>                
+  
 </body>
 
 </html>
